@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Médicos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef; /* Light background */
+            color: #343a40;
+            text-align: center;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #007bff; /* Bootstrap primary color */
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #495057;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        form:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            color: #343a40;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            border-color: #0056b3; /* Darker blue on focus */
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #007bff;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e2e6ea;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Cadastro de Médicos</h1>
+<form id="usuarioForm">
+    <label for="nomeMedico">Nome do Médico</label>
+    <input type="text" id="nomeMedico" placeholder="Digite o nome do médico" required>
+    
+    <label for="emailMedico">E-mail</label>
+    <input type="email" id="emailMedico" placeholder="Digite o e-mail" required>
+    
+    <label for="crmMedico">CRM</label>
+    <input type="text" id="crmMedico" placeholder="Digite o CRM" required>
+    
+    <label for="especializacaoMedico">Especialização</label>
+    <select id="especializacaoMedico" required>
+        <option value="">Selecione a especialização</option>
+        <option value="dermatologia">Dermatologia</option>
+        <option value="alergologia">Alergologia</option>
+        <option value="cardiologia">Cardiologia</option>
+        <option value="pediatria">Pediatria</option>
+        <option value="neurologia">Neurologia</option>
+        <option value="ortopedia">Ortopedia</option>
+        <option value="ginecologia">Ginecologia</option>
+        <option value="urologia">Urologia</option>
+        <option value="oncologia">Oncologia</option>
+        <option value="psiquiatria">Psiquiatria</option>
+        <option value="endocrinologia">Endocrinologia</option>
+        <option value="oftalmologia">Oftalmologia</option>
+        <option value="otorrinolaringologia">Otorrinolaringologia</option>
+        <option value="radiologia">Radiologia</option>
+        <option value="reumatologia">Reumatologia</option>
+        <option value="nefrologia">Nefrologia</option>
+        <option value="hematologia">Hematologia</option>
+        <option value="imunologia">Imunologia</option>
+        <option value="cirurgia_geral">Cirurgia Geral</option>
+        <option value="cirurgia_plastica">Cirurgia Plástica</option>
+        <option value="cirurgia_cardiaca">Cirurgia Cardíaca</option>
+        <option value="cirurgia_vascular">Cirurgia Vascular</option>
+        <option value="medicina_do_trabalho">Medicina do Trabalho</option>
+        <option value="medicina_da_familia">Medicina da Família</option>
+        <option value="medicina_esportiva">Medicina Esportiva</option>
+        <!-- Adicione outras especializações aqui -->
+    </select>
+
+    <button id="salvarUsuario" type="submit">Salvar</button>
+    <div id="errorMessage" class="error-message"></div>
+</form>
+
+<h2>Médicos Cadastrados</h2>
+<table id="usuariosTable">
+    <thead>
+    <tr>
+        <th>CRM</th>
+        <th>Nome do Médico</th>
+        <th>E-mail</th>
+        <th>Especialização</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Médicos cadastrados serão adicionados aqui -->
+    </tbody>
+</table>
+
+<script>
+    const medicos = JSON.parse(localStorage.getItem('medicos')) || [];
+
+    medicos.forEach(medico => addMedicoToTable(medico));
+
+    document.getElementById("usuarioForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const nomeMedico = document.getElementById("nomeMedico").value;
+        const emailMedico = document.getElementById("emailMedico").value;
+        const crmMedico = document.getElementById("crmMedico").value;
+        const especializacaoMedico = document.getElementById("especializacaoMedico").value;
+        const errorMessage = document.getElementById("errorMessage");
+        errorMessage.textContent = "";
+
+        if (!nomeMedico || !emailMedico || !crmMedico || !especializacaoMedico) {
+            errorMessage.textContent = "Todos os campos são obrigatórios.";
+            return;
+        }
+
+        const medicoExistente = medicos.find(medico => medico.crmMedico === crmMedico);
+        if (medicoExistente) {
+            errorMessage.textContent = "CRM já cadastrado.";
+            return;
+        }
+
+        const newMedico = { crmMedico, nomeMedico, emailMedico, especializacaoMedico };
+        medicos.push(newMedico);
+        localStorage.setItem('medicos', JSON.stringify(medicos));
+        addMedicoToTable(newMedico);
+
+        document.getElementById("usuarioForm").reset();
+        alert("Médico salvo com sucesso!");
+    });
+
+    function addMedicoToTable(medico) {
+        const tableBody = document.querySelector("#usuariosTable tbody");
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${medico.crmMedico}</td><td>${medico.nomeMedico}</td><td>${medico.emailMedico}</td><td>${medico.especializacaoMedico}</td>`;
+        tableBody.appendChild(row);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+

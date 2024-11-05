@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Médico</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Gradiente de cinza escuro para azul escuro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid white; /* Contorno branco */
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ffffff; /* Letras em branco */
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 5px;
+            border: 1px solid white; /* Contorno branco nos inputs */
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white; /* Texto branco */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        select option {
+            color: white; /* Texto branco nas opções */
+            background-color: #34495e; /* Cor do fundo das opções */
+        }
+        input::placeholder, select {
+            color: white; /* Texto branco no placeholder */
+        }
+        input:focus, select:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            background-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.5);
+        }
+        .success-message {
+            color: #2ecc71;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            display: none;
+            border: 2px solid #2ecc71;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(46, 204, 113, 0.1); /* Fundo translúcido */
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            form {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <form id="formMedico" onsubmit="return validarFormulario()">
+            <h2>Cadastro de Médico</h2>
+
+            <label for="nome">Nome do Médico</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite o nome do médico" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Digite o e-mail" required>
+
+            <label for="crm">CRM</label>
+            <input type="text" id="crm" name="crm" placeholder="Digite o número do CRM" required>
+
+            <label for="especializacao">Especialização</label>
+            <select id="especializacao" name="especializacao" required>
+                <option value="">Selecione a especialização</option>
+                <option value="dermatologia">Dermatologia</option>
+                <option value="alergologia">Alergologia</option>
+                <option value="cardiologia">Cardiologia</option>
+                <option value="pediatria">Pediatria</option>
+                <option value="neurologia">Neurologia</option>
+                <option value="ortopedia">Ortopedia</option>
+                <option value="ginecologia">Ginecologia</option>
+                <option value="urologia">Urologia</option>
+                <option value="oncologia">Oncologia</option>
+                <option value="psiquiatria">Psiquiatria</option>
+                <option value="endocrinologia">Endocrinologia</option>
+                <option value="oftalmologia">Oftalmologia</option>
+                <option value="otorrinolaringologia">Otorrinolaringologia</option>
+                <option value="radiologia">Radiologia</option>
+                <option value="reumatologia">Reumatologia</option>
+                <option value="nefrologia">Nefrologia</option>
+                <option value="hematologia">Hematologia</option>
+                <option value="imunologia">Imunologia</option>
+                <option value="cirurgia_geral">Cirurgia Geral</option>
+                <option value="cirurgia_plastica">Cirurgia Plástica</option>
+                <option value="cirurgia_cardiaca">Cirurgia Cardíaca</option>
+                <option value="cirurgia_vascular">Cirurgia Vascular</option>
+                <option value="medicina_do_trabalho">Medicina do Trabalho</option>
+                <option value="medicina_da_familia">Medicina da Família</option>
+                <option value="medicina_esportiva">Medicina Esportiva</option>
+            </select>
+
+            <button type="submit">Cadastrar Médico</button>
+        </form>
+
+        <div class="success-message" id="successMessage">Médico cadastrado com sucesso!</div>
+    </div>
+
+    <script>
+        function validarFormulario() {
+            var nome = document.getElementById("nome").value;
+            var email = document.getElementById("email").value;
+            var crm = document.getElementById("crm").value;
+            var especializacao = document.getElementById("especializacao").value;
+
+            if (nome === "" || email === "" || crm === "" || especializacao === "") {
+                alert("Por favor, preencha todos os campos obrigatórios.");
+                return false;
+            }
+
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("formMedico").reset();
+
+            return false;
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
